@@ -4,14 +4,14 @@ import java.util.Objects;
 
 public class Item {
 
-    public String name;
+    public final Type type;
 
-    public int sellIn;
+    public final int sellIn;
 
-    public int quality;
+    public final int quality;
 
-    public Item(String name, int sellIn, int quality) {
-        this.name = name;
+    public Item(Type type, int sellIn, int quality) {
+        this.type = type;
         this.sellIn = sellIn;
         this.quality = quality;
     }
@@ -21,24 +21,24 @@ public class Item {
     }
 
     public Item copy() {
-        return new Item(this.name, this.sellIn, this.quality);
+        return new Item(this.type, this.sellIn, this.quality);
     }
 
-    public Item withName(String name) {
-        return new Item(name, this.sellIn, this.quality);
+    public Item withType(Type type) {
+        return new Item(type, this.sellIn, this.quality);
     }
 
     public Item withSellIn(int sellIn) {
-        return new Item(this.name, sellIn, this.quality);
+        return new Item(this.type, sellIn, this.quality);
     }
 
     public Item withQuality(int quality) {
-        return new Item(this.name, this.sellIn, quality);
+        return new Item(this.type, this.sellIn, quality);
     }
 
    @Override
    public String toString() {
-        return this.name + ", " + this.sellIn + ", " + this.quality;
+        return this.type + ", " + this.sellIn + ", " + this.quality;
     }
 
     // equals() and hashCode() must be overwrritten for correctly comparing 2 instances of Item class
@@ -48,21 +48,21 @@ public class Item {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Item item = (Item) o;
-        return Objects.equals(name, item.name) && sellIn == item.sellIn && quality == item.quality;
+        return Objects.equals(type, item.type) && sellIn == item.sellIn && quality == item.quality;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, sellIn, quality);
+        return Objects.hash(type, sellIn, quality);
     }
 
     public static class Builder {
-        private String name;
+        private Type type;
         private int sellIn;
         private int quality;
 
-        public Builder name(String name) {
-            this.name = name;
+        public Builder type(Type type) {
+            this.type = type;
             return this;
         }
 
@@ -77,7 +77,7 @@ public class Item {
         }
 
         public Item build() {
-            return new Item(name, sellIn, quality);
+            return new Item(type, sellIn, quality);
         }
     }
 }
